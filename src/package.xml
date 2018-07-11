@@ -4,7 +4,6 @@
         <members>Tools_ActionResult</members>
         <members>Tools_GeneralBatchCC</members>
         <members>Tools_GeneralBatchClassCC</members>
-        <members>Tools_JsonResult</members>
         <members>Tools_MetaDataTestClassCC</members>
         <members>Tools_MetadataApiCC</members>
         <name>ApexClass</name>
