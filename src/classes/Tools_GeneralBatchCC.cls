@@ -137,10 +137,6 @@ global with sharing class Tools_GeneralBatchCC {
 			}
 		}
 
-		for(SelectOptionField sObj: options) {
-			System.debug('sObj >>> ' + sObj);
-		}
-
 		return options;
 	}
 
@@ -264,8 +260,8 @@ global with sharing class Tools_GeneralBatchCC {
 	}
 
 	global class KeyMappingObj{
-		global String jsonKey	{get; set;}
-		global String objKey 	{get; set;}
+		global String jsonKey		{get; set;}
+		global String objKey 		{get; set;}
 	}
 
 	global class FieldMappingObj{
@@ -276,6 +272,8 @@ global with sharing class Tools_GeneralBatchCC {
 	global class SelectOptionField {
 		global String key 						{get; set;}
 		global String dataType     				{get; set;}
+		global String jsonType  				{get; set;}
+		global String jsonVariable  			{get; set;}
 		global SelectOptionField parent     	{get; set;}
 	}
 }

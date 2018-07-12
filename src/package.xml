@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>API_Wrapper</members>
+        <members>API_WrapperTest</members>
         <members>Tools_ActionResult</members>
         <members>Tools_GeneralBatchCC</members>
         <members>Tools_GeneralBatchClassCC</members>
@@ -9,6 +11,7 @@
         <name>ApexClass</name>
     </types>
     <types>
+        <members>AUTODEPLOY_HELLO</members>
         <members>Tools_GeneralBatch</members>
         <name>ApexPage</name>
     </types>
