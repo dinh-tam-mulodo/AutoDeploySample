@@ -124,6 +124,20 @@ global with sharing class Tools_GeneralBatchCC {
 		return genJSON;
 	}
 
+	private static Map<String,String> getListObjInJSON(List<ObjData> rs, Map<String,String> data, String classApiName) {
+		Map<String,String> mapObjJSON = new Map<String,String>();
+		for(ObjData item: rs) {
+			if(item.dataType.equals('List') || item.dataType.equals('Object')) {
+				mapObjJSON.put('', '');
+			}
+			if(item.childKey != null) {
+				mapObjJSON.putAll(getListObjInJSON(item.childKey, mapObjJSON, classApiName));
+			}
+		}
+
+		return mapObjJSON;
+	}
+
 	private static List<SelectOptionField> genJsonToOption(List<ObjData> rs, SelectOptionField parent) {
 		List<SelectOptionField> options = new List<SelectOptionField>();
 		for(ObjData item: rs) {
