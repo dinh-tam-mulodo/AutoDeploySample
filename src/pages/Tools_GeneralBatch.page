@@ -304,7 +304,7 @@
                                                     <div class="slds-form-element__row">
                                                         <div class="slds-form-element slds-size_5-of-12 slds-m-around_none slds-p-around_x-small" style="margin: 0;">
                                                             <select class="slds-select select2-element" name="json-{{key}}" id="json-{{key}}" style="width: 100%" ng-model="cnt.jsonField" required="required">
-                                                                <option ng-repeat="item in mappingJsonField" value="{{item}}">{{item.key}}</option>                                                               
+                                                                <option ng-repeat="(index, item) in mappingJsonField" value="{{item}}">{{item[index].key}}</option>                                                               
                                                             </select>
                                                         </div>
                                                         <div class="slds-form-element slds-size_1-of-12 slds-m-around_none slds-p-around_x-small slds-text-align_center" style="margin: 0;">

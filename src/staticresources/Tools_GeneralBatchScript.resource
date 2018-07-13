@@ -70,6 +70,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
    	//Mapping object
    	$scope.mappingObj = null;
    	$scope.mappingLstField = [];
+   	$scope.mappingJsonField = null;
     // List field Key for async
     $scope.fieldData3th = [];
 
@@ -315,12 +316,11 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 							lstItem[v.key] = v;
 						}
 					} else if ( v.dataType == 'Object') {} {
-						$.extend(true, lstItem ,fillJsonField([v.jsonVariable]));
+						$.extend( true, lstItem, fillJsonField([v.jsonVariable]) );
 					}
 				}
 			});
 		});
-		console.log(lstItem);
 		return lstItem;
 	}
 });
