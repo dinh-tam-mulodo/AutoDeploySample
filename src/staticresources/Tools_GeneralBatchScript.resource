@@ -311,7 +311,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 				if (v.dataType != 'List' && v.dataType != 'Object') {
 					lstItem.push(v);
 				} else if ( v.dataType == 'Object') {} {
-					lstItem.push.apply(lstItem,fillJsonField(v.jsonVariable));
+					lstItem.push.apply(lstItem,fillJsonField([v.jsonVariable]));
 				}
 			}
 		});
