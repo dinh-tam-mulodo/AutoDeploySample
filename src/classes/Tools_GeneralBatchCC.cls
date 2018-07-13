@@ -1,4 +1,4 @@
-// tam add comment 123
+// tam deploy class onlu
 global with sharing class Tools_GeneralBatchCC {
 	global Tools_GeneralBatchCC() {
 		
