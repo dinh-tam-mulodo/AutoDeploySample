@@ -307,6 +307,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 	function fillJsonField(jsonObj){
 		var lstItem = [];
 		angular.forEach($scope.fieldData3th,function(v,k){
+			console.log(jsonObj);
 			if (v.jsonType == jsonObj) {
 				if (v.dataType != 'List' && v.dataType != 'Object') {
 					lstItem.push(v);
