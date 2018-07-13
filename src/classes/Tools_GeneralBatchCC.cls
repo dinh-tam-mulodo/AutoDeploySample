@@ -42,7 +42,8 @@ global with sharing class Tools_GeneralBatchCC {
 		
 		ActionResult res = new ActionResult();
 		res.currentObjOrg = objName;
-		res.jsonData = genJsonToOption(rs, null);
+		res.jsonObj = getListObjInJSON(rs, null, className);
+		res.jsonData = genJsonToOption(rs, className, null);
 
 		return new Tools_ActionResult(!rs.isEmpty(), res, null);
 	}
@@ -60,10 +61,11 @@ global with sharing class Tools_GeneralBatchCC {
 
 		String className = paramData.className;
 		String objMapping = paramData.objMapping;
+		String jsonObjMapping = paramData.jsonObjMapping;
 		String wrapperClass = paramData.wrapperClass;
 		String mappingCondition = paramData.mappingCondition;
 
-		Tools_ActionResult errors = Tools_GeneralBatchClassCC.creatWrapperClass(wrapperClass, objMapping, className, mappingCondition, paramData.lstMappingObj, paramData.lstMappingField);
+		Tools_ActionResult errors = Tools_GeneralBatchClassCC.creatWrapperClass(wrapperClass, objMapping, jsonObjMapping, className, mappingCondition, paramData.lstMappingObj, paramData.lstMappingField);
 
 		return errors;
 		//return new Tools_ActionResult(false, null, null);
@@ -128,7 +130,7 @@ global with sharing class Tools_GeneralBatchCC {
 		Map<String,String> mapObjJSON = new Map<String,String>();
 		for(ObjData item: rs) {
 			if(item.dataType.equals('List') || item.dataType.equals('Object')) {
-				mapObjJSON.put('', '');
+				mapObjJSON.put(classApiName+'.'+singularLabel(item.key), singularLabel(item.key));
 			}
 			if(item.childKey != null) {
 				mapObjJSON.putAll(getListObjInJSON(item.childKey, mapObjJSON, classApiName));
@@ -138,16 +140,17 @@ global with sharing class Tools_GeneralBatchCC {
 		return mapObjJSON;
 	}
 
-	private static List<SelectOptionField> genJsonToOption(List<ObjData> rs, SelectOptionField parent) {
+	private static List<SelectOptionField> genJsonToOption(List<ObjData> rs, String wrapperClass, SelectOptionField parent) {
 		List<SelectOptionField> options = new List<SelectOptionField>();
 		for(ObjData item: rs) {
 			SelectOptionField option = new SelectOptionField();
-			option.key = parent != null ? parent.key+'.'+item.key : item.key;
+			option.key = item.key;
 			option.dataType = item.dataType;
-			option.parent = parent != null ? parent : null;
+			option.jsonType = parent != null ? wrapperClass+'.'+singularLabel(parent.key) : null;
+			option.jsonVariable = parent != null ? wrapperClass+'.'+singularLabel(item.key) : null;
 			options.add(option);
 			if(item.childKey != null) {
-				options.addAll(genJsonToOption(item.childKey, option));
+				options.addAll(genJsonToOption(item.childKey, wrapperClass, option));
 			}
 		}
 
@@ -170,6 +173,93 @@ global with sharing class Tools_GeneralBatchCC {
 		} catch(Exception e) {
 			return false;
 		}
+	}
+
+	private static string singularLabel(String param) {
+		String target = param.replaceAll('[^a-zA-Z0-9|_]', '_');
+		String regExp = '[a-zA-Z]{1}';
+		String regExpForSpecial = '^(_){1,10}';
+		target = target.replaceFirst(regExpForSpecial, '');
+		String replacement = target.left(1).toUpperCase();
+		return target.replaceFirst(regExp, replacement);
+	}
+
+	//Check name item is valid for create class if invalid replace it
+	private static String reGeneralName(String item) {
+
+		Boolean isUpperCase = item.isAllUpperCase();
+
+		// check item first char is number
+		if(item.left(1).isNumeric()) {
+			item = 'n_'+item;
+		}
+		// check item first char i special char
+		else if(!item.left(1).isAlpha() && !item.left(1).isNumeric()) {
+			item = 'x'+item.replaceAll('[^a-zA-Z0-9]', '_');
+		}
+		// check item has special name
+		else if(item.toLowerCase() == 'class') {
+			item += '_z';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'boolean') {
+			item += '_b';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'id') {
+			item += '_i';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'blob') {
+			item += '_bl';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'date') {
+			item += '_d';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'datetime') {
+			item += '_dt';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'time') {
+			item += '_t';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'string') {
+			item += '_s';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'integer') {
+			item += '_int';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'long') {
+			item += '_l';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'decimal') {
+			item += '_dec';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'dobuble') {
+			item += '_dob';
+		}
+		// Check item has special name
+		else if(item.toLowerCase() == 'list' 
+			|| item.toLowerCase() == 'object' 
+			|| item.toLowerCase() == 'map' 
+			|| item.toLowerCase() == 'set') {
+
+			item += '_o';
+
+		}
+
+		if(isUpperCase) {
+			item = item.toUpperCase();
+		}
+
+		return item;
 	}
 
 	private static string getType(Object o) {
@@ -255,6 +345,7 @@ global with sharing class Tools_GeneralBatchCC {
 
 	global class ActionResult{
 		Object jsonData 		{get; set;}
+		Object jsonObj 			{get; set;}
 		Object currentObjOrg 	{get; set;}
 	}
 
@@ -265,6 +356,7 @@ global with sharing class Tools_GeneralBatchCC {
 
 	global class BatchObj{
 		String wrapperClass 					{get; set;}
+		String jsonObjMapping 					{get; set;}
 		String objMapping 						{get; set;}
 		String className 						{get; set;}
 		String mappingCondition 				{get; set;}

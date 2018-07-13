@@ -129,18 +129,42 @@
                 </div>
 
                 <div id="select-key" class="slds-tabs--path__content slds-hide" role="tabpanel" aria-labelledby="tab-path-2">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label" for="select-sobject">Select Object</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-select_container">
-                                <select class="slds-select select2-element" name="select-sobject" id="select-sobject" style="width: 100%">
-                                    <option value="" disabled="disabled" selected="selected">--Please select object--</option>
-                                    <option ng-repeat="(key, value) in sObject" value="{{key}}">{{value}}</option>
-                                    
-                                </select>
-                            </div>
+	                <div class="slds-form-element__group slds-p-around_large">
+                        <div class="slds-form-element__row slds-grid">
+                        	<div class="slds-form-element slds-col slds-size_5-of-12 slds-m-around_none slds-p-around_x-small" style="margin: 0;">
+		                        <label class="slds-form-element__label" for="select-sobject">Select Json Object</label>
+		                        <div class="slds-form-element__control">
+		                            <div class="slds-select_container">
+		                                <select class="slds-select select2-element" name="select-json-object" id="select-json-object" style="width: 100%">
+		                                    <option value="" disabled="disabled" selected="selected">--Please select json object--</option>
+		                                    <option ng-repeat="(key, value) in jsonObject" value="{{key}}">{{value}}</option>
+		                                    
+		                                </select>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <div class="slds-form-element slds-col slds-size_2-of-12 slds-m-around_none slds-p-around_x-small slds-align_absolute-center" style="margin-top: 15px;">
+	                            <span class="slds-icon_container slds-icon-utility-macros" title="Description of icon when needed">
+	                                <svg class="slds-icon slds-icon-text-default" aria-hidden="true">
+	                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#macros" />
+	                                </svg>
+	                            </span>
+	                        </div>
+		                    <div class="slds-form-element slds-col slds-size_5-of-12 slds-m-around_none slds-p-around_x-small" style="margin: 0;">
+		                        <label class="slds-form-element__label" for="select-sobject">Select Org Object</label>
+		                        <div class="slds-form-element__control">
+		                            <div class="slds-select_container">
+		                                <select class="slds-select select2-element" name="select-sobject" id="select-sobject" style="width: 100%">
+		                                    <option value="" disabled="disabled" selected="selected">--Please select org object--</option>
+		                                    <option ng-repeat="(key, value) in sObject" value="{{key}}">{{value}}</option>
+		                                    
+		                                </select>
+		                            </div>
+		                        </div>
+		                    </div>
                         </div>
                     </div>
+                	 
                     <div class="slds-form-element slds-align_absolute-center slds-m-top_small">
                         <button class="slds-button slds-button_brand" ng-click="getlstFields()">Select object</button>
                     </div>
@@ -149,7 +173,7 @@
                         <div class="slds-grid">
                             <!-- Key area -->
                             <div class="slds-col slds-size_12-of-12 slds-p-around_large">
-                                <article class="slds-card" ng-disabled="mappingObj == ''" ng-class="{'disabled': mappingObj == ''}">
+                                <article class="slds-card" ng-disabled="mappingObj == null" ng-class="{'disabled': mappingObj == null}">
                                     <div class="slds-card__header slds-grid">
                                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                             <div class="slds-media__body">
@@ -176,7 +200,7 @@
                                                     <div class="slds-form-element__row">
                                                         <div class="slds-form-element slds-size_5-of-12 slds-m-around_none slds-p-around_x-small" style="margin: 0;">
                                                             <select class="slds-select select2-element" name="key3th-{{key}}" id="key3th-{{key}}" style="width: 100%" ng-model="cnt.jsonKey" required="required">
-                                                                <option ng-repeat="item in fieldData3th" value="{{item}}">{{item.key}}</option>                                                               
+                                                                <option ng-repeat="item in mappingJsonField" value="{{item}}">{{item.key}}</option>                                                               
                                                             </select>
                                                         </div>
                                                         <div class="slds-form-element slds-size_1-of-12 slds-m-around_none slds-p-around_x-small slds-text-align_center" style="margin: 0;">
@@ -211,14 +235,14 @@
                                                     <legend class="slds-form-element__legend slds-form-element__label"><b>Mapping condition</b></legend>
 													    <div class="slds-form-element__control">
 												      	<span class="slds-radio">
-													        <input type="radio" id="mappingCondition-Or" value="OR" name="mappingCondition" ng-model="mappingCondition"/>
+													        <input type="radio" id="mappingCondition-Or" name="mappingCondition" ng-model="operator" ng-click="setValueOperator('OR')" value="OR" />
 													        <label class="slds-radio__label" for="mappingCondition-Or">
 													          	<span class="slds-radio_faux"></span>
 													          	<span class="slds-form-element__label">OR</span>
 													        </label>
 												      	</span>
 												      	<span class="slds-radio">
-													        <input type="radio" id="mappingCondition-And" value="AND" name="mappingCondition" ng-model="mappingCondition"/>
+													        <input type="radio" id="mappingCondition-And" name="mappingCondition" ng-model="operator" ng-click="setValueOperator('AND')" value="AND"/>
 													        <label class="slds-radio__label" for="mappingCondition-And">
 													          	<span class="slds-radio_faux"></span>
 													          	<span class="slds-form-element__label">AND</span>
@@ -281,7 +305,7 @@
                                                     <div class="slds-form-element__row">
                                                         <div class="slds-form-element slds-size_5-of-12 slds-m-around_none slds-p-around_x-small" style="margin: 0;">
                                                             <select class="slds-select select2-element" name="json-{{key}}" id="json-{{key}}" style="width: 100%" ng-model="cnt.jsonField" required="required">
-                                                                <option ng-repeat="item in fieldData3th" value="{{item}}">{{item.key}}</option>                                                               
+                                                                <option ng-repeat="item in mappingJsonField" value="{{item}}">{{item.key}}</option>                                                               
                                                             </select>
                                                         </div>
                                                         <div class="slds-form-element slds-size_1-of-12 slds-m-around_none slds-p-around_x-small slds-text-align_center" style="margin: 0;">

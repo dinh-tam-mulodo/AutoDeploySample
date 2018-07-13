@@ -56,7 +56,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
     $scope.lastMappingKey = 1;
     $scope.divMappingKey = {};
     $scope.keyMappingField = [];
-    $scope.mappingCondition = 'OR';
+    $scope.operator = 'AND';
     $scope.showMappingCondition = false;
 
     //Block mapping field
@@ -66,8 +66,9 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 
     //List Sobject
    	$scope.sObject = [];
+   	$scope.jsonObject = [];
    	//Mapping object
-   	$scope.mappingObj = '';
+   	$scope.mappingObj = null;
    	$scope.mappingLstField = [];
     // List field Key for async
     $scope.fieldData3th = [];
@@ -92,6 +93,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
             	$scope.isLoading = false;
             	$scope.fieldData3th = result.data.jsonData;
             	$scope.sObject = result.data.currentObjOrg;
+            	$scope.jsonObject = result.data.jsonObj;
 
     			$scope.changeStep(1);	
             } else {
@@ -104,15 +106,19 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 
     $scope.getlstFields = function () {
     	$scope.mappingObj = $('#select-sobject').val();
-    	if ($scope.mappingObj != '') {
+    	
+    	if ($scope.mappingObj != null) {
     		$scope.isLoading = true;
     		sf.callRemoteActionWithParameter('Tools_GeneralBatchCC.getCurrentLstField',$scope.mappingObj).then(function(result){
             	if (result.isSuccess) {
 	            	$scope.isLoading = false;
 	            	$scope.mappingLstField = result.data;
+	            	$scope.mappingJsonField = fillJsonField($('#select-json-object').val());
 	    			$scope.divMappingKey['key-'+$scope.lastMappingKey] = {};
 	            } else {
+	            	$scope.errMsgs = result.errorMessage;
 	            	$scope.showError = true;
+	            	$scope.isLoading = false;
 	            }
         	});
     	}
@@ -203,25 +209,34 @@ app.controller('GeneralBatchController', function ($scope, sf) {
     	$scope.showModalConfirm = false; 
     }
 
+    $scope.setValueOperator = function (value) {
+    	$scope.operator = value;
+    }
+
     $scope.finalStep = function() {
     	var re = new RegExp("^[a-zA-Z]([a-zA-z0-9_]){2,}$");
 		if (re.test($scope.obj.batchName)) {
 		    $scope.batchNameErr = null;
 		    var param = {
 		    	'wrapperClass' : $scope.obj.className,
+		    	'jsonObjMapping' : $('#select-json-object').val(),
 		    	'objMapping' : $scope.mappingObj,
 		    	'className' : $scope.obj.batchName,
 		    	'isRunAfterGen' : true,
-		    	'mappingCondition' : $scope.mappingCondition,
+		    	'mappingCondition' : $scope.operator,
 		    	'lstMappingObj' : $scope.keyMappingField,
 		    	'lstMappingField' : $scope.lstMappingField
 		    };
+
 		    sf.callRemoteActionWithParameter('Tools_GeneralBatchCC.generalBatchClass',JSON.stringify(param)).then(function(result){
             	if (result.isSuccess) {
 	            	$scope.isLoading = false;
-	            	console.log(result.data);
+	            	$scope.showModalConfirm = false;
+	            	alert('Create batch success');
 	            } else {
+	            	$scope.errMsgs = result.errorMessage;
 	            	$scope.showError = true;
+	            	$scope.isLoading = false;
 	            }
         	});
 		} else {
@@ -287,5 +302,20 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 		$('#'+step).addClass('slds-show');
 		$('.showStep').show();
 		$('.step-title').html(step);
+	}
+
+	function fillJsonField(jsonObj){
+		var lstItem = [];
+		angular.forEach($scope.fieldData3th,function(v,k){
+			if (v.jsonType == jsonObj) {
+				if (v.dataType != 'List' && v.dataType != 'Object') {
+					lstItem.push(v);
+				} else if ( v.dataType == 'Object') {} {
+					lstItem.push.apply(lstItem,fillJsonField(v.jsonVariable));
+				}
+			}
+		});
+
+		return lstItem;
 	}
 });
