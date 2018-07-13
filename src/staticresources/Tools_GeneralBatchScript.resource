@@ -306,7 +306,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 	}
 
 	function fillJsonField(jsonObj){
-		var lstItem = [];
+		var lstItem = {};
 		
 		angular.forEach(jsonObj,function(jsonObjKey , key){
 			angular.forEach($scope.fieldData3th,function(v,k){
@@ -316,7 +316,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 							lstItem[v.key] = v;
 						}
 					} else if ( v.dataType == 'Object') {} {
-						$.extend( true, lstItem, fillJsonField([v.jsonVariable]) );
+						$.extend( lstItem, fillJsonField([v.jsonVariable]) );
 					}
 				}
 			});
