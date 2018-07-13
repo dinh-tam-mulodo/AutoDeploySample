@@ -70,7 +70,6 @@ app.controller('GeneralBatchController', function ($scope, sf) {
    	//Mapping object
    	$scope.mappingObj = null;
    	$scope.mappingLstField = [];
-   	$scope.mappingJsonField = null;
     // List field Key for async
     $scope.fieldData3th = [];
 
@@ -306,21 +305,17 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 	}
 
 	function fillJsonField(jsonObj){
-		var lstItem = {};
-		
-		angular.forEach(jsonObj,function(jsonObjKey , key){
-			angular.forEach($scope.fieldData3th,function(v,k){
-				if (jsonObjKey == v.jsonType) {
-					if (v.dataType != 'List' && v.dataType != 'Object') {
-						if (lstItem[v.key] == null || lstItem[v.key] == undefined) {
-							lstItem[v.key] = v;
-						}
-					} else if ( v.dataType == 'Object') {} {
-						$.extend( lstItem, fillJsonField([v.jsonVariable]) );
-					}
+		var lstItem = [];
+		angular.forEach($scope.fieldData3th,function(v,k){
+			if (v.jsonType == jsonObj) {
+				if (v.dataType != 'List' && v.dataType != 'Object') {
+					lstItem.push(v);
+				} else if ( v.dataType == 'Object') {} {
+					lstItem.push.apply(lstItem,fillJsonField(v.jsonVariable));
 				}
-			});
+			}
 		});
+
 		return lstItem;
 	}
 });

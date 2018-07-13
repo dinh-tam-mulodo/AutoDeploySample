@@ -135,7 +135,8 @@
 		                        <label class="slds-form-element__label" for="select-sobject">Select Json Object</label>
 		                        <div class="slds-form-element__control">
 		                            <div class="slds-select_container">
-		                                <select class="slds-select select2-element" name="select-json-object[]" multiple="multiple" id="select-json-object" style="width: 100%" >
+		                                <select class="slds-select select2-element" name="select-json-object" id="select-json-object" style="width: 100%" >
+		                                    <option value="" disabled="disabled" selected="selected">--Please select json object--</option>
 		                                    <option ng-repeat="(key, value) in jsonObject" value="{{key}}">{{value}}</option>
 		                                    
 		                                </select>
@@ -425,11 +426,7 @@
             <apex:includeScript value="{!URLFOR($Resource.Tools_select2, '/select2.min.js')}"/>
             <script>
                 $(document).ready(function() {
-                    $('.select2-element').select2({
-                    	width:'resolve',
-                    	placeholder: "Select a object",
-    					allowClear: true
-                    });
+                    $('.select2-element').select2({width:'resolve'});
                 });
             </script>
             <apex:includeScript value="{!$Resource.Tools_GeneralBatchScript}" />
