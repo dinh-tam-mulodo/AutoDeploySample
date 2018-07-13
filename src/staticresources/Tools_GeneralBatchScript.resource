@@ -306,18 +306,21 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 
 	function fillJsonField(jsonObj){
 		var lstItem = [];
-		angular.forEach($scope.fieldData3th,function(v,k){
-			if (jsonObj.indexOf(v.jsonType) !== -1) {
-				if (v.dataType != 'List' && v.dataType != 'Object') {
-					if (lstItem[v.key] == null || lstItem[v.key] == undefined) {
-						lstItem[v.key] = v;
+		
+		angular.forEach(jsonObj,function(jsonObjKey , key){
+			angular.forEach($scope.fieldData3th,function(v,k){
+				if (jsonObjKey == v.jsonType) {
+					if (v.dataType != 'List' && v.dataType != 'Object') {
+						if (lstItem[v.key] == null || lstItem[v.key] == undefined) {
+							lstItem[v.key] = v;
+						}
+					} else if ( v.dataType == 'Object') {} {
+						lstItem.push.apply(lstItem,fillJsonField([v.jsonVariable]));
 					}
-				} else if ( v.dataType == 'Object') {} {
-					lstItem.push.apply(lstItem,fillJsonField([v.jsonVariable]));
 				}
-			}
+			});
 		});
-
+		console.log(lstItem);
 		return lstItem;
 	}
 });
