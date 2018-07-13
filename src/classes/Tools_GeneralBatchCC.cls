@@ -1,4 +1,4 @@
-// tam deploy class only and no conflict with a
+// tam deploy class only and no conflict with 
 global with sharing class Tools_GeneralBatchCC {
 	global Tools_GeneralBatchCC() {
 		
