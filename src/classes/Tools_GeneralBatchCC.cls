@@ -1,4 +1,4 @@
-// tam deploy class onlu
+// tam deploy class only and no conflict with page
 global with sharing class Tools_GeneralBatchCC {
 	global Tools_GeneralBatchCC() {
 		

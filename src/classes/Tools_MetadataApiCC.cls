@@ -1,3 +1,4 @@
+// what is it?
 global with sharing class Tools_MetadataApiCC {
 
 	public static Tools_ActionResult creatWrapperClass(String objData, String className) {
