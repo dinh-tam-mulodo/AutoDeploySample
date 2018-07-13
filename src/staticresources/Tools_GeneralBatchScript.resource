@@ -315,7 +315,7 @@ app.controller('GeneralBatchController', function ($scope, sf) {
 							lstItem[v.key] = v;
 						}
 					} else if ( v.dataType == 'Object') {} {
-						lstItem.push.apply(lstItem,fillJsonField([v.jsonVariable]));
+						$.extend(true, lstItem ,fillJsonField([v.jsonVariable]));
 					}
 				}
 			});
