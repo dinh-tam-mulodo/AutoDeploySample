@@ -1,4 +1,4 @@
-// what is it? let go ok version no
+// what is it? let go ok version no 1
 global with sharing class Tools_MetadataApiCC {
 
 	public static Tools_ActionResult creatWrapperClass(String objData, String className) {
