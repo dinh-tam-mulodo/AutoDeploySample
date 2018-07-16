@@ -1,4 +1,5 @@
 <apex:page showHeader="false" sidebar="false">
 	Auto deploy again?
 	I don't know
+	me too
 </apex:page>
