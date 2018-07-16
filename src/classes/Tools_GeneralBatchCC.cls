@@ -1,4 +1,4 @@
-// tam deploy 2 class version xxx
+// tam deploy 2 class version 
 global with sharing class Tools_GeneralBatchCC {
 	global Tools_GeneralBatchCC() {
 		
