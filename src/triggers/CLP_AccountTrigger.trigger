@@ -1,4 +1,4 @@
-// tam test
+// tam test 1
 trigger CLP_AccountTrigger on Account (before delete,after undelete) {
 	if(Trigger.isDelete){
 		if(Trigger.isBefore){
