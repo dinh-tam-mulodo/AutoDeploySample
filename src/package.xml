@@ -16,6 +16,14 @@
         <name>ApexPage</name>
     </types>
     <types>
+        <members>CLP_AccountTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>CustomLabels</members>
+        <name>CustomLabels</name>
+    </types>
+    <types>
         <members>Tools_AngularJS</members>
         <members>Tools_GeneralBatchScript</members>
         <members>Tools_select2</members>
