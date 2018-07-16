@@ -1,4 +1,4 @@
-// tam test 1
+// auto deploy
 var app = angular.module('GeneralBatchApp', []);
 // create factory service for App
 app.factory('sf', BaseFactory);
