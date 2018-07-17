@@ -9,6 +9,7 @@
 		<members>Tools_MetaDataTestClassCC</members>
 		<members>Tools_MetadataApiCC</members>
 		<members>AUTO_DEPLOYCC</members>
+		<members>AUTO_DEPLOYCX</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
