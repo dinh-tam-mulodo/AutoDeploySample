@@ -6,7 +6,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>AUTO_DEPLOY</shortDescription>
-        <value>String from custom label!!!</value>
+        <value>String from custom label!!! no thanks</value>
     </labels>
     <labels>
         <fullName>CLP_AccountBillingBulkDeleteBatchLabel</fullName>
