@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>AUTO_DEPLOY</fullName>
+        <categories>AUTO</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AUTO_DEPLOY</shortDescription>
+        <value>String from custom label</value>
+    </labels>
+    <labels>
         <fullName>CLP_AccountBillingBulkDeleteBatchLabel</fullName>
         <categories>CloudPayment</categories>
         <language>en_US</language>
