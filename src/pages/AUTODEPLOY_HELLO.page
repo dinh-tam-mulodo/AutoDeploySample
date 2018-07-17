@@ -2,5 +2,5 @@
 <!-- controller="AUTO_DEPLOYCC" -->
 	Page: <span style="color:blue;font-weight: bold">Dinh Minh Tam</span><br/>
 	<!-- Controller: <span style="color:red;font-weight: bold">{!testString}</span> <br/> -->
-	Custom label: <span style="color:green;font-weight: bold">{!$Label.AUTO_DEPLOY}</span>
+	<!-- Custom label: <span style="color:green;font-weight: bold">{!$Label.AUTO_DEPLOY}</span> -->
 </apex:page>
