@@ -27,6 +27,7 @@
     </types>
     <types>
         <members>Deploy_Test__c</members>
+        <members>demoDeploy__c</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -52,8 +53,9 @@
         <name>StaticResource</name>
     </types>
     <types>
-        <members>demoDeploy__c</members>
-        <name>Workflow</name>
+        <members>demoDeploy__c.demo deploy2</members>
+        <members>demoDeploy__c.demoTestFlow</members>
+        <name>WorkflowRule</name>
     </types>
     <version>42.0</version>
 </Package>
