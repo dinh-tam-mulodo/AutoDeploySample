@@ -14,6 +14,7 @@ join_by(){ local IFS="$1"; shift; echo "$*"; }
 
 CHANGED=()
 CHANGED+=(src/objects/demoDeploy__c.object)
+CHANGED+=(src/flows/TesT_UAT-1.flow)
 CHANGED+=(src/workflows/demoDeploy__c.workflow)
 CHANGED+=("src/layouts/demoDeploy__c-demoDeploy Layout.layout")
 CHANGED+=("src/layouts/demoDeploy__c-uat layout.layout")
@@ -33,6 +34,8 @@ resourceArr=()
 componentArr=()
 #Array of object
 objectArr=()
+#Array of flow
+flowArr=()
 #Array of workflow
 workflowArr=()
 #layout
@@ -72,6 +75,9 @@ if [ -n "${CHANGED}" ]; then
 	    elif [[ $metaName = *".object" ]]; then
 	    	objectName=${metaName#src/objects/}
 	        objectArr+=("<members>${objectName%.object}</members>")
+    	elif [[ $metaName = *".flow" ]]; then
+	    	flowName=${metaName#src/flows/}
+	        flowArr+=("<members>${flowName%.flow}</members>")
 	   	elif [[ $metaName = *".workflow" ]]; then
 	    	workflowName=${metaName#src/workflows/}
 	        workflowArr+=("<members>${workflowName%.workflow}</members>")
@@ -126,6 +132,13 @@ if [ -n "${CHANGED}" ]; then
 		object=$( join_by "" ${objectArr[@]} )
 		object="<types>$object<name>CustomObject</name></types>"
 	fi
+	#check flow Arr is not Empty
+	flow=""
+	if [ -n "$flowArr" ]; then
+		#join class with comma
+		flow=$( join_by "" ${flowArr[@]} )
+		flow="<types>$flow<name>Flow</name></types>"
+	fi
 	#check workflow Arr is not Empty
 	workflow=""
 	if [ -n "$workflowArr" ]; then
@@ -135,7 +148,7 @@ if [ -n "${CHANGED}" ]; then
 	fi
 	#check layout Arr is not Empty
 	layoutArr="<types>$layoutArr<name>Layout</name></types>"
-	#check workflow Arr is not Empty
+	#check globalValueSet Arr is not Empty
 	globalValueSet=""
 	if [ -n "$globalValueSetArr" ]; then
 		#join class with comma
@@ -143,7 +156,7 @@ if [ -n "${CHANGED}" ]; then
 		globalValueSet="<types>$globalValueSet<name>GlobalValueSet</name></types>"
 	fi
 
-	packageString="<?xml version=\"1.0\" encoding=\"UTF-8\"?><Package xmlns=\"http://soap.sforce.com/2006/04/metadata\">$pages $class $trigger $resource $labels $object $component $workflow $layoutArr $globalValueSet<version>39.0</version></Package>"
+	packageString="<?xml version=\"1.0\" encoding=\"UTF-8\"?><Package xmlns=\"http://soap.sforce.com/2006/04/metadata\">$pages $class $trigger $resource $labels $object $component $flow $workflow $layoutArr $globalValueSet<version>39.0</version></Package>"
 
 	echo $packageString > codeDeployPkg/package.xml
 
