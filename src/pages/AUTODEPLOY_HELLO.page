@@ -1,5 +1,5 @@
 <apex:page showHeader="false" sidebar="false" controller="AUTO_DEPLOYCX" > 
-	Page: <span style="color:blue;font-weight: bold">deploy by tam2014</span><br/>
+	Page: <span style="color:blue;font-weight: bold">deploy by tam</span><br/>
 	Controller: <span style="color:red;font-weight: bold">{!testString}</span> <br/>
 	Custom label: <span style="color:green;font-weight: bold">{!$Label.AUTO_DEPLOY}</span>	
 	<!-- <apex:includeScript value="{!$Resource.Auto_deploy}"/> -->
