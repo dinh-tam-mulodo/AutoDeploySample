@@ -53,27 +53,19 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>IsAuto1__c</fullName>
+        <fullName>is_Test__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
-        <label>IsAuto1</label>
+        <label>is Test</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
-    <fields>
-        <fullName>IsAuto__c</fullName>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>IsAuto</label>
-        <trackTrending>false</trackTrending>
-        <type>Checkbox</type>
-    </fields>
-    <label>Deploy</label>
+    <label>Deploy Test</label>
     <nameField>
-        <label>Deploy Name</label>
+        <label>Deploy Test Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Deploys</pluralLabel>
+    <pluralLabel>Deploy Tests</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
