@@ -22,6 +22,10 @@
         <name>ApexTrigger</name>
     </types>
     <types>
+        <members>CustomLabels</members>
+        <name>CustomLabels</name>
+    </types>
+    <types>
         <members>Deploy_Test__c</members>
         <name>CustomObject</name>
     </types>
