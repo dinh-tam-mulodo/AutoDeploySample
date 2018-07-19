@@ -34,6 +34,10 @@
         <name>CustomTab</name>
     </types>
     <types>
+        <members>sfApi</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+    <types>
         <members>Tools_AngularJS</members>
         <members>Tools_GeneralBatchScript</members>
         <members>Tools_select2</members>
