@@ -78,5 +78,11 @@
     <pluralLabel>Deploy Tests</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>test_rule</fullName>
+        <active>true</active>
+        <errorConditionFormula>is_Test1__c</errorConditionFormula>
+        <errorMessage>no thanks</errorMessage>
+    </validationRules>
     <visibility>Public</visibility>
 </CustomObject>
