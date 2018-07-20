@@ -31,5 +31,5 @@
         <members>Tools_select2</members>
         <name>StaticResource</name>
     </types>
-    <version>42.0</version>
+    <version>39.0</version>
 </Package>
