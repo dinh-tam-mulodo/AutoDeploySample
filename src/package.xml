@@ -35,6 +35,14 @@
         <name>CustomTab</name>
     </types>
     <types>
+        <members>demoDeploy</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>demoDeploy</members>
+        <name>FlowDefinition</name>
+    </types>
+    <types>
         <members>Demo_Deploy2</members>
         <name>GlobalValueSet</name>
     </types>
