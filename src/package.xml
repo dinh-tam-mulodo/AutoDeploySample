@@ -60,10 +60,14 @@
         <members>Tools_select2</members>
         <name>StaticResource</name>
     </types>
+<<<<<<< HEAD
+    <version>39.0</version>
+=======
     <types>
         <members>demoDeploy__c.demo deploy2</members>
         <members>demoDeploy__c.demoTestFlow</members>
         <name>WorkflowRule</name>
     </types>
     <version>42.0</version>
+>>>>>>> c148af4288e99e325725aacc4b745f88d9ebfbaf
 </Package>
